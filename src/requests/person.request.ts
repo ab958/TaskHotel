@@ -4,7 +4,7 @@ export interface SaveReqPERSON{
     email: string;
     password: string;
     isAdmin: boolean;
-    isWaiter: boolean;
+    // isWaiter: boolean;
   }
   export interface UpdateReqPERSON {
     _id:string;
@@ -12,7 +12,7 @@ export interface SaveReqPERSON{
     email: string;
     password: string;
     isAdmin: boolean;
-    isWaiter: boolean;
+    // isWaiter: boolean;
   }
   export interface GetPERSON {
     id: string

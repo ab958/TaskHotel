@@ -1,9 +1,11 @@
 import express from 'express';
 import { OrderController } from '../controller/order.controller';
-// import { IADMIN } from '../types/document/IAdmin';
+import { order } from '../documents/IORDER';
 import { DeleteORDER, GetORDER, SaveReqORDER, UpdateReqORDER } from '../requests/order.request';
 import { SaveUpdateResORDER } from '../responce/order.res';
 import CustomeError from '../utills/error';
+import jwt from "jsonwebtoken";
+
 
 export class AdminRoutes {
   router: express.Router;
@@ -23,8 +25,32 @@ export class AdminRoutes {
     });
     this.router.post('/saveOrder', async (req, res, next) => {
       try {
-        const admin: SaveReqORDER = req.body;
-        const newAdmin:SaveUpdateResORDER = await new OrderController().saveadmin(admin);
+        // const admin: SaveReqORDER = req.body;
+        const admin: order[] = req.body;
+        // const {_id} = res.locals.jwtPayload
+        // const token:any = req.header('token');
+        // console.log(token,"token")
+        // const vei = jwt.verify(token,"WAHAB")
+       
+        // const a = res.locals.jwtPayload = vei;
+      //  res.locals.jwtPayload = vei;
+        // console.log(a,"aaaa")
+        // const {_id} = res.locals.jwtPayload
+        // console.log(_id)
+        // console.log(admin,_id)
+        // let totalamount = 0
+        // for(let i =0;i<admin.length;i++){
+        //   totalamount = totalamount + admin[i].price 
+        // }
+        // const data = {
+        //   "user" : "6136064563cc83ec38cc3336",
+        //   "orderItems" : admin,
+        //   "totalPrice" : totalamount
+        //  }
+        let user = req.User
+        console.log(user,"from routes")
+        // let user = OrderController.getuser(user)
+        const newAdmin:SaveUpdateResORDER = await new OrderController(user).saveadmin(admin);
         res.status(200).json({
           message: newAdmin
         });

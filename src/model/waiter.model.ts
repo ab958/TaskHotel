@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { IPERSON } from "../documents/Iperson";
+import { IWAITER } from "../documents/waiter";
 const IADMINSchema = new Schema(
   {
     name: {
@@ -15,7 +15,7 @@ const IADMINSchema = new Schema(
         type: String,
         required: true,
       },
-      isAdmin: {
+      isWaiter: {
         type: Boolean,
         required: true,
         default: false,
@@ -24,4 +24,4 @@ const IADMINSchema = new Schema(
   },
   { timestamps: true }
 );
-export const PersonSchema = model<IPERSON>('IPERSONSchema', IADMINSchema);
+export const WaiterSchema = model<IWAITER>('IWAITERSchema', IADMINSchema);

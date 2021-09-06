@@ -4,7 +4,7 @@ export interface SaveUpdateResPERSON {
     email: string;
     password: string;
     isAdmin: boolean;
-    isWaiter: boolean;
+    // isWaiter: boolean;
     createdAt?: string;
     updatedAt?: string;
   }

@@ -14,19 +14,20 @@ export class AdminRoutes {
     this.routes();
   }
   routes() {
-    this.router.post('/getperson', async (req, res, next) => {
-      try {
-        const getreq:GetPERSON = req.body;
-          const admin:SaveUpdateResPERSON = await new PersonController().getPerson(getreq);
-          res.send(admin);
-      } catch (error) {
-        next(error);
-      }
-    });
+    // this.router.post('/getperson', async (req, res, next) => {
+    //   try {
+    //     const getreq:GetPERSON = req.body;
+    //       const admin:SaveUpdateResPERSON = await new PersonController().getPerson(getreq);
+    //       res.send(admin);
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // });
     this.router.post('/loginperson',async(req, res, next) =>{
       try{
         const admin: Login = req.body;
         const log = await new PersonController().getloginn(admin);
+        // console.log(log)
         res.status(200).json({
           Tokken : log
         });
@@ -45,57 +46,43 @@ export class AdminRoutes {
         next(error);
       }
     });
-    this.router.put('/updateperson', async (req, res, next) => {
-      try {
-        const admin: UpdateReqPERSON = req.body;
-        const upadated_admin:SaveUpdateResPERSON = await new PersonController().updatePerson(admin);
-        const response = {
-          upadated_admin,
-        };
-        res.status(200).json({
-          message: response
-        });
-      } catch (error) {
-        next(error);
-      }
-    });
-    this.router.delete('/deleteperson', async (req, res, next) => {
-      try {
-        const delreq:DeletePERSON = req.body;
-        const Deleted_admin = await new PersonController().deletPerson(delreq);
-        res.status(200).json({
-          message: 'admin deleted'
-        });
-      } catch (error) {
-        next(error);
-      }
-    });
-    this.router.post('/getpersonlist', async (req, res, next) => {
-      try {
-        const adminList: SaveUpdateResPERSON[] = await new PersonController().getPersonList();
-        res.status(200).json({
-          result: adminList
-        });
+    // this.router.put('/updateperson', async (req, res, next) => {
+    //   try {
+    //     const admin: UpdateReqPERSON = req.body;
+    //     const upadated_admin:SaveUpdateResPERSON = await new PersonController().updatePerson(admin);
+    //     const response = {
+    //       upadated_admin,
+    //     };
+    //     res.status(200).json({
+    //       message: response
+    //     });
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // });
+    // this.router.delete('/deleteperson', async (req, res, next) => {
+    //   try {
+    //     const delreq:DeletePERSON = req.body;
+    //     const Deleted_admin = await new PersonController().deletPerson(delreq);
+    //     res.status(200).json({
+    //       message: 'admin deleted'
+    //     });
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // });
+    // this.router.post('/getpersonlist', async (req, res, next) => {
+    //   try {
+    //     const adminList: SaveUpdateResPERSON[] = await new PersonController().getPersonList();
+    //     res.status(200).json({
+    //       result: adminList
+    //     });
 
-      } catch (error) {
-        next(error);
-      }
-    });
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // });
   }
 }
 export const PersonRoutesApi = new AdminRoutes().router;
 
-function Auth(req:express.Request ,res : express.Response,next: express.NextFunction){
-  const token:any = req.header('token');
-  if(!token){
-    res.send("Access Deniad")
-  }
-  try{
-    const vei = jwt.verify(token,"WAHAB")
-    // req.user = vei
-    next()
-  }catch(e){
-    res.send("invalid Token")
-  }
-
-}

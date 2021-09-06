@@ -6,56 +6,6 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"SaveUpdateResPERSON": {
-				"properties": {
-					"_id": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					},
-					"isAdmin": {
-						"type": "boolean"
-					},
-					"isWaiter": {
-						"type": "boolean"
-					},
-					"createdAt": {
-						"type": "string"
-					},
-					"updatedAt": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"_id",
-					"name",
-					"email",
-					"password",
-					"isAdmin",
-					"isWaiter"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"GetPERSON": {
-				"properties": {
-					"id": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"gettoken": {
 				"properties": {
 					"token": {
@@ -84,6 +34,40 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"SaveUpdateResPERSON": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"isAdmin": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id",
+					"name",
+					"email",
+					"password",
+					"isAdmin"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"SaveReqPERSON": {
 				"properties": {
 					"name": {
@@ -97,91 +81,13 @@
 					},
 					"isAdmin": {
 						"type": "boolean"
-					},
-					"isWaiter": {
-						"type": "boolean"
 					}
 				},
 				"required": [
 					"name",
 					"email",
 					"password",
-					"isAdmin",
-					"isWaiter"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"UpdateReqPERSON": {
-				"properties": {
-					"_id": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					},
-					"isAdmin": {
-						"type": "boolean"
-					},
-					"isWaiter": {
-						"type": "boolean"
-					}
-				},
-				"required": [
-					"_id",
-					"name",
-					"email",
-					"password",
-					"isAdmin",
-					"isWaiter"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"_LeanDocument__LeanDocument_T__": {
-				"properties": {},
-				"type": "object"
-			},
-			"Pick__LeanDocument_T_.Exclude_keyof_LeanDocument_T_.Exclude_keyofDocument._id-or-id-or-__v_-or-%24isSingleNested__": {
-				"properties": {
-					"_id": {
-						"$ref": "#/components/schemas/_LeanDocument__LeanDocument_T__",
-						"description": "This documents _id."
-					},
-					"__v": {
-						"description": "This documents __v."
-					},
-					"id": {
-						"description": "The string version of this documents _id."
-					}
-				},
-				"type": "object",
-				"description": "From T, pick a set of properties whose keys are in the union K"
-			},
-			"Omit__LeanDocument_this_.Exclude_keyofDocument._id-or-id-or-__v_-or-%24isSingleNested_": {
-				"$ref": "#/components/schemas/Pick__LeanDocument_T_.Exclude_keyof_LeanDocument_T_.Exclude_keyofDocument._id-or-id-or-__v_-or-%24isSingleNested__",
-				"description": "Construct a type with the properties of T except for those in type K."
-			},
-			"LeanDocument_this_": {
-				"$ref": "#/components/schemas/Omit__LeanDocument_this_.Exclude_keyofDocument._id-or-id-or-__v_-or-%24isSingleNested_"
-			},
-			"IPERSON": {
-				"$ref": "#/components/schemas/LeanDocument_this_"
-			},
-			"DeletePERSON": {
-				"properties": {
-					"id": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id"
+					"isAdmin"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -265,39 +171,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"SaveReqORDER": {
-				"properties": {
-					"user": {
-						"type": "string"
-					},
-					"orderItems": {
-						"items": {
-							"$ref": "#/components/schemas/order"
-						},
-						"type": "array"
-					},
-					"totalPrice": {
-						"type": "number",
-						"format": "double"
-					},
-					"isAccepted": {
-						"type": "boolean"
-					},
-					"deliveredAt": {
-						"type": "string",
-						"format": "date-time"
-					}
-				},
-				"required": [
-					"user",
-					"orderItems",
-					"totalPrice",
-					"isAccepted",
-					"deliveredAt"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"UpdateReqORDER": {
 				"properties": {
 					"_id": {
@@ -335,6 +208,33 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"_LeanDocument__LeanDocument_T__": {
+				"properties": {},
+				"type": "object"
+			},
+			"Pick__LeanDocument_T_.Exclude_keyof_LeanDocument_T_.Exclude_keyofDocument._id-or-id-or-__v_-or-%24isSingleNested__": {
+				"properties": {
+					"_id": {
+						"$ref": "#/components/schemas/_LeanDocument__LeanDocument_T__",
+						"description": "This documents _id."
+					},
+					"__v": {
+						"description": "This documents __v."
+					},
+					"id": {
+						"description": "The string version of this documents _id."
+					}
+				},
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit__LeanDocument_this_.Exclude_keyofDocument._id-or-id-or-__v_-or-%24isSingleNested_": {
+				"$ref": "#/components/schemas/Pick__LeanDocument_T_.Exclude_keyof_LeanDocument_T_.Exclude_keyofDocument._id-or-id-or-__v_-or-%24isSingleNested__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"LeanDocument_this_": {
+				"$ref": "#/components/schemas/Omit__LeanDocument_this_.Exclude_keyofDocument._id-or-id-or-__v_-or-%24isSingleNested_"
+			},
 			"IORDER": {
 				"$ref": "#/components/schemas/LeanDocument_this_"
 			},
@@ -346,6 +246,85 @@
 				},
 				"required": [
 					"id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SaveUpdateResWAITER": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"isWaiter": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"_id",
+					"name",
+					"email",
+					"password",
+					"isWaiter"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SaveReqWAITER": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"isWaiter": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"name",
+					"email",
+					"password",
+					"isWaiter"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Menu": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"type",
+					"price"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -369,38 +348,6 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/Person/getPerson": {
-			"post": {
-				"operationId": "GetPerson",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/SaveUpdateResPERSON"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"person"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/GetPERSON"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/Person/loginPerson": {
 			"post": {
 				"operationId": "Getloginn",
@@ -465,95 +412,6 @@
 				}
 			}
 		},
-		"/Person/updatePerson": {
-			"put": {
-				"operationId": "UpdatePerson",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/SaveUpdateResPERSON"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"person"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UpdateReqPERSON"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/Person/deletePerson": {
-			"delete": {
-				"operationId": "DeletPerson",
-				"responses": {
-					"200": {
-						"description": "Person deleted",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/IPERSON"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"person"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/DeletePERSON"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/Person/getPersonlist": {
-			"post": {
-				"operationId": "GetPersonList",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/SaveUpdateResPERSON"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"person"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
 		"/Order/getorder": {
 			"post": {
 				"operationId": "Getadmin",
@@ -586,7 +444,7 @@
 				}
 			}
 		},
-		"/Order/saveorder": {
+		"/Order/saveOrder": {
 			"post": {
 				"operationId": "Saveadmin",
 				"responses": {
@@ -611,7 +469,10 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/SaveReqORDER"
+								"items": {
+									"$ref": "#/components/schemas/order"
+								},
+								"type": "array"
 							}
 						}
 					}
@@ -705,6 +566,103 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/Waiter/saveWaiter": {
+			"post": {
+				"operationId": "Savewaiter",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SaveUpdateResWAITER"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"waiter"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SaveReqWAITER"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/Waiter/getmenu": {
+			"post": {
+				"operationId": "Menu",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Menu"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"waiter"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/Waiter/loginWaiter": {
+			"post": {
+				"operationId": "Getloginn",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/gettoken"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"waiter"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Login"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

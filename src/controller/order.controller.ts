@@ -1,4 +1,4 @@
-import { IORDER } from '../documents/IORDER';
+import { IORDER,order } from '../documents/IORDER';
 import { MainOrder } from '../repository/order.repo';
 import CustomeError from '../utills/error';
 import { Get, Route, Tags, Post, Body, Path, Put, Delete, SuccessResponse } from "tsoa";
@@ -7,16 +7,20 @@ import { DeleteORDER, GetORDER, SaveReqORDER,UpdateReqORDER } from '../requests/
 @Route('Order')
 @Tags('order')
 export class OrderController {
-  constructor() { }
+  User:any
+  constructor(user ?: any) {
+    this.User = user
+   }
   @Post("/getorder")
   async getadmin(@Body() getreq:GetORDER): Promise<SaveUpdateResORDER> {
     const admin = await new MainOrder().getOrder(getreq.id);
     if (admin === null) throw new CustomeError(404, 'Admin not found');
     return <SaveUpdateResORDER>admin;
   }
-  @Post('/saveorder')
-  async saveadmin(@Body() admin: SaveReqORDER): Promise<SaveUpdateResORDER> {
-    const new_admin:IORDER = await new MainOrder().saveOrder(<IORDER>(admin));
+  @Post('/saveOrder')
+  async saveadmin(@Body() admin: order[],): Promise<SaveUpdateResORDER> {
+    console.log(this.User,"from controller")
+    const new_admin = await new MainOrder().saveOrder(<order[]>(admin),this.User);
     return <SaveUpdateResORDER>(new_admin);
   }
   @Put('/updateorder')
