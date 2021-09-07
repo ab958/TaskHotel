@@ -28,6 +28,11 @@ export class AdminRoutes {
         const admin: Login = req.body;
         const log = await new PersonController().getloginn(admin);
         // console.log(log)
+        // res.header = <any>log
+        // req.headers = <any>log
+        // var headers_object = new HttpHeaders();
+        // headers_object.append('Content-Type', 'application/json');
+        // headers_object.append("Authorization", "Bearer " + t);
         res.status(200).json({
           Tokken : log
         });

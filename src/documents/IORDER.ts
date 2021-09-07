@@ -18,7 +18,7 @@ export interface IORDER extends Document {
   orderItems: order[];
   totalPrice: number;
   isAccepted: boolean;
-  deliveredAt?: Date;
+  deliveredAt: Date;
 //   JoinDate: string;
 //   adress: string;
   createdAt?: string;

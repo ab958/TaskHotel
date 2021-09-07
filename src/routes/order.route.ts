@@ -5,6 +5,7 @@ import { DeleteORDER, GetORDER, SaveReqORDER, UpdateReqORDER } from '../requests
 import { SaveUpdateResORDER } from '../responce/order.res';
 import CustomeError from '../utills/error';
 import jwt from "jsonwebtoken";
+import { waiter } from "../routes/waiter.route"
 
 
 export class AdminRoutes {
@@ -14,16 +15,16 @@ export class AdminRoutes {
     this.routes();
   }
   routes() {
-    this.router.post('/getOrder', async (req, res, next) => {
-      try {
-        const getreq:GetORDER = req.body;
-          const admin:SaveUpdateResORDER = await new OrderController().getadmin(getreq);
-          res.send(admin);
-      } catch (error) {
-        next(error);
-      }
-    });
-    this.router.post('/saveOrder', async (req, res, next) => {
+    // this.router.post('/getOrder', async (req, res, next) => {
+    //   try {
+    //     const getreq:GetORDER = req.body;
+    //       const admin:SaveUpdateResORDER = await new OrderController().getadmin(getreq);
+    //       res.send(admin);
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // });
+    this.router.post('/saveOrder',waiter, async (req, res, next) => {
       try {
         // const admin: SaveReqORDER = req.body;
         const admin: order[] = req.body;
@@ -47,8 +48,16 @@ export class AdminRoutes {
         //   "orderItems" : admin,
         //   "totalPrice" : totalamount
         //  }
-        let user = req.User
-        console.log(user,"from routes")
+        console.log(req.header('token'),"from waiter")
+
+        let token:any = req.header('token')
+        console.log(token,"from routes")
+        const vei:any = jwt.verify(token,"WAHAB")
+        console.log(vei,"eveve")
+        const a = res.locals.jwtPayload = vei;
+        const {_id} = res.locals.jwtPayload
+        let user = _id
+
         // let user = OrderController.getuser(user)
         const newAdmin:SaveUpdateResORDER = await new OrderController(user).saveadmin(admin);
         res.status(200).json({
@@ -58,34 +67,16 @@ export class AdminRoutes {
         next(error);
       }
     });
-    this.router.put('/updateOrder', async (req, res, next) => {
+
+    this.router.post('/getmyorderlist',waiter ,async (req, res, next) => {
       try {
-        const admin: UpdateReqORDER = req.body;
-        const upadated_admin:SaveUpdateResORDER = await new OrderController().updateAdmin(admin);
-        const response = {
-          upadated_admin,
-        };
-        res.status(200).json({
-          message: response
-        });
-      } catch (error) {
-        next(error);
-      }
-    });
-    this.router.delete('/deleteOrder', async (req, res, next) => {
-      try {
-        const delreq:DeleteORDER = req.body;
-        const Deleted_admin = await new OrderController().deletadmin(delreq);
-        res.status(200).json({
-          message: 'admin deleted'
-        });
-      } catch (error) {
-        next(error);
-      }
-    });
-    this.router.post('/getOrderlist', async (req, res, next) => {
-      try {
-        const adminList: SaveUpdateResORDER[] = await new OrderController().getadminList();
+        let token:any = req.header('token')
+      // console.log(token,"from routes")
+      const vei:any = jwt.verify(token,"WAHAB")
+      // console.log(vei,"eveve")
+      const a = res.locals.jwtPayload = vei;
+      const {_id} = res.locals.jwtPayload
+        const adminList: SaveUpdateResORDER[] = await new OrderController(_id).getmyorderList();
         res.status(200).json({
           result: adminList
         });
@@ -94,6 +85,42 @@ export class AdminRoutes {
         next(error);
       }
     });
+    // this.router.put('/updateOrder', async (req, res, next) => {
+    //   try {
+    //     const admin: UpdateReqORDER = req.body;
+    //     const upadated_admin:SaveUpdateResORDER = await new OrderController().updateAdmin(admin);
+    //     const response = {
+    //       upadated_admin,
+    //     };
+    //     res.status(200).json({
+    //       message: response
+    //     });
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // });
+    // this.router.delete('/deleteOrder', async (req, res, next) => {
+    //   try {
+    //     const delreq:DeleteORDER = req.body;
+    //     const Deleted_admin = await new OrderController().deletadmin(delreq);
+    //     res.status(200).json({
+    //       message: 'admin deleted'
+    //     });
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // });
+    // this.router.post('/getOrderlist', async (req, res, next) => {
+    //   try {
+    //     const adminList: SaveUpdateResORDER[] = await new OrderController().getadminList();
+    //     res.status(200).json({
+    //       result: adminList
+    //     });
+
+    //   } catch (error) {
+    //     next(error);
+    //   }
+    // });
   }
 }
 export const OrderRoutesApi = new AdminRoutes().router;

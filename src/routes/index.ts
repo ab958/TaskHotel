@@ -9,7 +9,7 @@ export class MainRouter {
         this.routes();
     }
     routes() {
-        this.router.use('/person',PersonRoutesApi);
+        this.router.use('/Admin',PersonRoutesApi);
         this.router.use('/waiter',WaiterRoutesApi);
         this.router.use('/order',OrderRoutesApi);
        

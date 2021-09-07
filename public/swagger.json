@@ -159,55 +159,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"GetORDER": {
-				"properties": {
-					"id": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"UpdateReqORDER": {
-				"properties": {
-					"_id": {
-						"type": "string"
-					},
-					"user": {
-						"type": "string"
-					},
-					"orderItems": {
-						"items": {
-							"$ref": "#/components/schemas/order"
-						},
-						"type": "array"
-					},
-					"totalPrice": {
-						"type": "number",
-						"format": "double"
-					},
-					"isAccepted": {
-						"type": "boolean"
-					},
-					"deliveredAt": {
-						"type": "string",
-						"format": "date-time"
-					}
-				},
-				"required": [
-					"_id",
-					"user",
-					"orderItems",
-					"totalPrice",
-					"isAccepted",
-					"deliveredAt"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"_LeanDocument__LeanDocument_T__": {
 				"properties": {},
 				"type": "object"
@@ -237,18 +188,6 @@
 			},
 			"IORDER": {
 				"$ref": "#/components/schemas/LeanDocument_this_"
-			},
-			"DeleteORDER": {
-				"properties": {
-					"id": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id"
-				],
-				"type": "object",
-				"additionalProperties": false
 			},
 			"SaveUpdateResWAITER": {
 				"properties": {
@@ -348,7 +287,7 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/Person/loginPerson": {
+		"/Admin/loginPerson": {
 			"post": {
 				"operationId": "Getloginn",
 				"responses": {
@@ -364,7 +303,7 @@
 					}
 				},
 				"tags": [
-					"person"
+					"admin"
 				],
 				"security": [],
 				"parameters": [],
@@ -380,7 +319,7 @@
 				}
 			}
 		},
-		"/Person/savePerson": {
+		"/Admin/savePerson": {
 			"post": {
 				"operationId": "SavePerson",
 				"responses": {
@@ -396,7 +335,7 @@
 					}
 				},
 				"tags": [
-					"person"
+					"admin"
 				],
 				"security": [],
 				"parameters": [],
@@ -406,38 +345,6 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/SaveReqPERSON"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/Order/getorder": {
-			"post": {
-				"operationId": "Getadmin",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/SaveUpdateResORDER"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"order"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/GetORDER"
 							}
 						}
 					}
@@ -460,9 +367,13 @@
 					}
 				},
 				"tags": [
-					"order"
+					"Order"
 				],
-				"security": [],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -479,73 +390,9 @@
 				}
 			}
 		},
-		"/Order/updateorder": {
-			"put": {
-				"operationId": "UpdateAdmin",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/SaveUpdateResORDER"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"order"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UpdateReqORDER"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/Order/deleteorder": {
-			"delete": {
-				"operationId": "Deletadmin",
-				"responses": {
-					"200": {
-						"description": "Admin deleted",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/IORDER"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"order"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/DeleteORDER"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/Order/getorderlist": {
+		"/Order/getmyorderlist": {
 			"post": {
-				"operationId": "GetadminList",
+				"operationId": "GetmyorderList",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -553,7 +400,7 @@
 							"application/json": {
 								"schema": {
 									"items": {
-										"$ref": "#/components/schemas/SaveUpdateResORDER"
+										"$ref": "#/components/schemas/IORDER"
 									},
 									"type": "array"
 								}
@@ -562,9 +409,13 @@
 					}
 				},
 				"tags": [
-					"order"
+					"Order"
 				],
-				"security": [],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
 				"parameters": []
 			}
 		},

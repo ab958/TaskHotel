@@ -7,8 +7,8 @@ import { SaveUpdateResPERSON,gettoken } from '../responce/person.res';
 import {SaveReqPERSON,UpdateReqPERSON,GetPERSON,DeletePERSON } from "../requests/person.request";
 import jwt from "jsonwebtoken";
 
-@Route('Person')
-@Tags('person')
+@Route('Admin')
+@Tags('admin')
 export class PersonController {
   constructor() { }
   // @Post("/getPerson")

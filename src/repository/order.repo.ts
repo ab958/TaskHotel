@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 
 export class MainOrder {
   constructor() {}
-  getOrder(_id: string) {
-    return OrderSchema.findById(_id);
-  }
+  // getOrder(_id: string) {
+  //   return OrderSchema.findById(_id);
+  // }
   saveOrder(Order: order[],user:any) {
     // console.log(Order)
     let totalamount = 0
@@ -21,15 +21,19 @@ export class MainOrder {
          }
     return new OrderSchema(data).save();
   }
-  updateOrder(Admmin: IORDER) {
-    return OrderSchema.findByIdAndUpdate(Admmin._id, Admmin, {
-      new: true
-    });
+
+  myorder(id:string){
+      return OrderSchema.find({user : id});
   }
-  deletOrder(_id: string) {
-    return OrderSchema.findByIdAndDelete(_id);
-  }
-  getOrderslist() {
-   return OrderSchema.find();
-  }
+  // updateOrder(Admmin: IORDER) {
+  //   return OrderSchema.findByIdAndUpdate(Admmin._id, Admmin, {
+  //     new: true
+  //   });
+  // }
+  // deletOrder(_id: string) {
+  //   return OrderSchema.findByIdAndDelete(_id);
+  // }
+  // getOrderslist() {
+  //  return OrderSchema.find();
+  // }
 }

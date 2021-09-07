@@ -1,10 +1,12 @@
 import express from 'express';
 import { WaiterController } from '../controller/waiter.controller';
+import { OrderController } from '../controller/order.controller';
 // import { IADMIN } from '../types/document/IAdmin';
 import { Login} from '../documents/Iperson';
 import { PersonSchema } from "../model/person.model"
 import { WaiterSchema } from "../model/waiter.model"
 import { SaveUpdateResWAITER,Menu } from '../responce/waiter.res';
+import { SaveUpdateResORDER } from '../responce/order.res';
 import { DeleteWAITER, GetWAITER, SaveReqWAITER,UpdateReqWAITER } from '../requests/waiter.request';
 import CustomeError from '../utills/error';
 import jwt from "jsonwebtoken";
@@ -43,6 +45,7 @@ export class AdminRoutes {
     this.router.post('/getmenu',waiter, async (req, res, next) => {
         try {
           const adminList: Menu[] = await new WaiterController().menu();
+          console.log(req.header('token'),"from waiter")
           res.status(200).json({
             result: adminList
           });
@@ -55,17 +58,18 @@ export class AdminRoutes {
       try{
         const admin: Login = req.body;
         const log:any = await new WaiterController().getloginn(admin);
-        console.log(log)
-        const vei = jwt.verify(log,"WAHAB")
-        console.log(vei)
-        res.locals.jwtPayload = vei;
+        // console.log(log)
+        // const vei = jwt.verify(log,"WAHAB")
+        // console.log(vei)
+        // res.locals.jwtPayload = vei;
+        res.header = <any>log
         // let a=   res.locals.user = res.locals.jwtPayload.data;
 // console.log(a)
         // req.User = vei
-        const {_id} = res.locals.jwtPayload
-        console.log(_id,"wahabbbb")
-        req.User = _id
-        console.log(req.User,"from waiter")
+        // const {_id} = res.locals.jwtPayload
+        // console.log(_id,"wahabbbb")
+        // req.User = _id
+        // console.log(req.header('Tokken'),"from waiter")
         // res.header  = log;
         res.status(200).json({
           Tokken : log
@@ -74,6 +78,25 @@ export class AdminRoutes {
         next(e);
       }
     })
+    // this.router.post('/getmyorderlist', async (req, res, next) => {
+    //     try {
+    //       let token:any = req.header('token')
+    //     // console.log(token,"from routes")
+    //     const vei:any = jwt.verify(token,"WAHAB")
+    //     // console.log(vei,"eveve")
+    //     const a = res.locals.jwtPayload = vei;
+    //     const {_id} = res.locals.jwtPayload
+    //       const adminList: SaveUpdateResORDER[] = await new OrderController().getmyorderList(_id);
+    //       res.status(200).json({
+    //         result: adminList
+    //       });
+  
+    //     } catch (error) {
+    //       next(error);
+    //     }
+    //   });
+
+
     // this.router.put('/updateadmin', async (req, res, next) => {
     //   try {
     //     const admin: UpdateReqADMIN = req.body;
@@ -114,7 +137,7 @@ export class AdminRoutes {
 }
 export const WaiterRoutesApi = new AdminRoutes().router;
 
-async function Admin(req:express.Request ,res : express.Response,next: express.NextFunction){
+export async function Admin(req:express.Request ,res : express.Response,next: express.NextFunction){
   const token:any = req.header('token');
   if(!token){
     res.send("Access Deniad")
@@ -150,7 +173,7 @@ async function Admin(req:express.Request ,res : express.Response,next: express.N
 
 }
 
-async function waiter(req:express.Request ,res : express.Response,next: express.NextFunction){
+export async function waiter(req:express.Request ,res : express.Response,next: express.NextFunction){
   const token:any = req.header('token');
   if(!token){
     res.send("Access Deniad")
