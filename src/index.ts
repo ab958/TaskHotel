@@ -12,18 +12,30 @@ const health = require('@cloudnative/health-connect');
 let healthcheck = new health.HealthChecker();
 import { MongoCluster,MongoDbName,Mongo_Pass,Mongo_user_name } from "./utills/constant";
 let server: Server | null = null;
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 7000;
 function initApplication(): express.Application {
     new DbMongo().connect(MongoCluster,MongoDbName,Mongo_user_name,Mongo_Pass);
     const app = express();
     app.use(express.json());
     app.use(morgan("tiny"));
     app.use(express.static("public"));
+
+    
     app.use("/swagger", swaggerUi.serve, swaggerUi.setup(undefined, {
         swaggerOptions: {
             url: "/swagger.json",
+            // tagSorter : 'alpha'
         }
+
     }));
+    // app?.use(MainRouter)
+
+    // To Handle Invalid Request
+    app?.all('*', function (req, res, next) {
+      // Send The Control To Error Handler
+      next(new Error("page not exist"))
+    })
+    
     app.use(cors());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));

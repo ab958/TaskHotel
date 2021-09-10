@@ -20,3 +20,4 @@ export interface SaveReqPERSON{
   export interface DeletePERSON {
     id: string
   }
+  

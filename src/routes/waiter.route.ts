@@ -77,6 +77,7 @@ export class AdminRoutes {
       }catch(e){
         next(e);
       }
+      
     })
     // this.router.post('/getmyorderlist', async (req, res, next) => {
     //     try {
@@ -137,8 +138,9 @@ export class AdminRoutes {
 }
 export const WaiterRoutesApi = new AdminRoutes().router;
 
-export async function Admin(req:express.Request ,res : express.Response,next: express.NextFunction){
+export async function Admin(req:any ,res : any,next: any){
   const token:any = req.header('token');
+  // req.token = token
   if(!token){
     res.send("Access Deniad")
   }
@@ -179,8 +181,12 @@ export async function waiter(req:express.Request ,res : express.Response,next: e
     res.send("Access Deniad")
   }
   try{
-    const vei = jwt.verify(token,"WAHAB")
-    // console.log(vei)
+    // interface wahab{
+    //   _id :string,
+    //   iat : any
+    // }
+    const vei = <any>jwt.verify(token,"WAHAB")
+    console.log(vei,"wei")
     // const a = res.locals.jwtPayload = vei;
     const a = res.locals.jwtPayload = vei;
     // console.log(a,"aaaa")

@@ -5,7 +5,7 @@ const IADMINSchema = new Schema(
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User",
+        ref: "IWAITERSchema",
       },
       orderItems: [
         {
@@ -29,6 +29,10 @@ const IADMINSchema = new Schema(
         type: Boolean,
         required: true,
         default: false,
+      },
+      waitingtime:{
+        type : String,
+        default : "15 m"
       },
       deliveredAt: {
         type: Date,

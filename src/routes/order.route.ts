@@ -5,7 +5,8 @@ import { DeleteORDER, GetORDER, SaveReqORDER, UpdateReqORDER } from '../requests
 import { SaveUpdateResORDER } from '../responce/order.res';
 import CustomeError from '../utills/error';
 import jwt from "jsonwebtoken";
-import { waiter } from "../routes/waiter.route"
+import { waiter,Admin } from "../routes/waiter.route"
+import { OrderSchema } from '../model/order.model';
 
 
 export class AdminRoutes {
@@ -60,6 +61,10 @@ export class AdminRoutes {
 
         // let user = OrderController.getuser(user)
         const newAdmin:SaveUpdateResORDER = await new OrderController(user).saveadmin(admin);
+       console.log(newAdmin)
+       let queue :SaveUpdateResORDER[]=[];
+         queue.push(newAdmin)
+         console.log(queue,"que")
         res.status(200).json({
           message: newAdmin
         });
@@ -71,6 +76,7 @@ export class AdminRoutes {
     this.router.post('/getmyorderlist',waiter ,async (req, res, next) => {
       try {
         let token:any = req.header('token')
+        console.log(res.locals.jwtPayload._id)
       // console.log(token,"from routes")
       const vei:any = jwt.verify(token,"WAHAB")
       // console.log(vei,"eveve")
@@ -85,6 +91,63 @@ export class AdminRoutes {
         next(error);
       }
     });
+
+    this.router.post('/getallorderlist',Admin ,async (req, res, next) => {
+      try {
+        const adminList: SaveUpdateResORDER[] = await new OrderController().getallorderList();
+        res.status(200).json({
+          result: adminList
+        });
+
+      } catch (error) {
+        next(error);
+      }
+    });
+    this.router.post('/AcceptOrder',Admin ,async (req, res, next) => {
+        try {
+          const getreq:GetORDER = req.body;
+            const order:SaveUpdateResORDER = await new OrderController().accpetadmin(getreq);
+            // **********************************
+            if(order){
+              if(order.isAccepted === false){
+                // console.log(order)
+                // const up ={
+                //   isDelivered = true
+                // }
+                // order[0].isDelivered =true
+                const whab = await OrderSchema.findByIdAndUpdate(order._id,{$set:  {isAccepted : true}},{
+                  returnOriginal :false,
+                })
+                console.log(whab)
+                console.log("whab")
+                let time = 15;
+                  const timeValue = setInterval(async(interval:any) => {
+                  time = time - 1;
+                  console.log(time)
+                  await OrderSchema.findByIdAndUpdate(order._id,{$set:  {waitingtime : time+"m"}})
+                  if (time <= 0) {
+                    clearInterval(timeValue);
+                  }
+                }, 60000);
+                // await whab.save()
+                return res.send("Your order is Accepted")
+              }else{
+                return res.send("Order is allready delerverd")
+              }
+              // console.log("helooo")
+             }else{
+              res.send("order doesnot exisit")
+             }
+
+            // **********************************
+            // res.send(admin);
+        } catch (error) {
+          next(error);
+        }
+      });
+
+
+
     // this.router.put('/updateOrder', async (req, res, next) => {
     //   try {
     //     const admin: UpdateReqORDER = req.body;
